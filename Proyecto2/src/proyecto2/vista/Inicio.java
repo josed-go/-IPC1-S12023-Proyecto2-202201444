@@ -138,6 +138,11 @@ public class Inicio extends javax.swing.JFrame {
         btnConvertidor.setForeground(new java.awt.Color(0, 0, 0));
         btnConvertidor.setText("CONVERTIDOR");
         btnConvertidor.setFocusPainted(false);
+        btnConvertidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConvertidorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -230,6 +235,12 @@ public class Inicio extends javax.swing.JFrame {
         this.setVisible(false);
         edi.setVisible(true);
     }//GEN-LAST:event_btnEditorActionPerformed
+
+    private void btnConvertidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertidorActionPerformed
+        Convertidor conv = new Convertidor();
+        this.setVisible(false);
+        conv.setVisible(true);
+    }//GEN-LAST:event_btnConvertidorActionPerformed
 
     /**
      * @param args the command line arguments
