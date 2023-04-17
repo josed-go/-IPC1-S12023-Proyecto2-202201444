@@ -38,8 +38,8 @@ public class Inicio extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEditor = new javax.swing.JButton();
+        btnConvertidor = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -67,6 +67,7 @@ public class Inicio extends javax.swing.JFrame {
         btnIngresar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(0, 0, 0));
         btnIngresar.setText("INGRESAR");
+        btnIngresar.setFocusPainted(false);
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -121,20 +122,22 @@ public class Inicio extends javax.swing.JFrame {
         jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
-        jButton2.setBackground(new java.awt.Color(255, 221, 154));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("EDITOR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEditor.setBackground(new java.awt.Color(255, 221, 154));
+        btnEditor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnEditor.setForeground(new java.awt.Color(0, 0, 0));
+        btnEditor.setText("EDITOR");
+        btnEditor.setFocusPainted(false);
+        btnEditor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEditorActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 221, 154));
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("CONVERTIDOR");
+        btnConvertidor.setBackground(new java.awt.Color(255, 221, 154));
+        btnConvertidor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnConvertidor.setForeground(new java.awt.Color(0, 0, 0));
+        btnConvertidor.setText("CONVERTIDOR");
+        btnConvertidor.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -151,8 +154,8 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConvertidor, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditor, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -163,9 +166,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)
-                .addComponent(jButton2)
+                .addComponent(btnEditor)
                 .addGap(45, 45, 45)
-                .addComponent(jButton3)
+                .addComponent(btnConvertidor)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -222,9 +225,11 @@ public class Inicio extends javax.swing.JFrame {
         bi.setVisible(true);  
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-             
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorActionPerformed
+        Editor edi = new Editor();
+        this.setVisible(false);
+        edi.setVisible(true);
+    }//GEN-LAST:event_btnEditorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,9 +267,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConvertidor;
+    private javax.swing.JButton btnEditor;
     private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

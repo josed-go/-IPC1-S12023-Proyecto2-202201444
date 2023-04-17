@@ -93,16 +93,23 @@ public class Biblioteca extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("SALIR");
         jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnACategoria.setBackground(new java.awt.Color(255, 221, 154));
         btnACategoria.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnACategoria.setForeground(new java.awt.Color(0, 0, 0));
         btnACategoria.setText("AGREGAR");
+        btnACategoria.setFocusPainted(false);
 
         btnECategoria.setBackground(new java.awt.Color(255, 221, 154));
         btnECategoria.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnECategoria.setForeground(new java.awt.Color(0, 0, 0));
         btnECategoria.setText("ELIMINAR");
+        btnECategoria.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,11 +150,13 @@ public class Biblioteca extends javax.swing.JFrame {
         btnAImagen.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAImagen.setForeground(new java.awt.Color(0, 0, 0));
         btnAImagen.setText("AGREGAR IMAGEN");
+        btnAImagen.setFocusPainted(false);
 
         btnEImagen.setBackground(new java.awt.Color(255, 221, 154));
         btnEImagen.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnEImagen.setForeground(new java.awt.Color(0, 0, 0));
         btnEImagen.setText("ELIMINAR IMAGEN");
+        btnEImagen.setFocusPainted(false);
 
         lblImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
@@ -235,6 +244,12 @@ public class Biblioteca extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Inicio inicio = new Inicio();
+        this.setVisible(false);
+        inicio.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ColorTabla() {
         DefaultTableModel modelo = new DefaultTableModel(new String[]{"CATEGORIAS"},1);
