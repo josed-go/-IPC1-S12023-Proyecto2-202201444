@@ -6,6 +6,7 @@ package proyecto2.vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -163,10 +164,26 @@ public class Biblioteca extends javax.swing.JFrame {
         btnCambiarD.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         btnCambiarD.setForeground(new java.awt.Color(0, 0, 0));
         btnCambiarD.setText(">");
+        btnCambiarD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCambiarDMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCambiarDMouseExited(evt);
+            }
+        });
 
         btnCambiarI.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         btnCambiarI.setForeground(new java.awt.Color(0, 0, 0));
         btnCambiarI.setText("<");
+        btnCambiarI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCambiarIMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCambiarIMouseExited(evt);
+            }
+        });
 
         lblNimagen.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblNimagen.setForeground(new java.awt.Color(0, 0, 0));
@@ -251,6 +268,27 @@ public class Biblioteca extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnCambiarDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarDMouseEntered
+        HoverBTN(btnCambiarD, color2);
+    }//GEN-LAST:event_btnCambiarDMouseEntered
+
+    private void btnCambiarDMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarDMouseExited
+        HoverBTN(btnCambiarD, color5);
+    }//GEN-LAST:event_btnCambiarDMouseExited
+
+    private void btnCambiarIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarIMouseEntered
+        HoverBTN(btnCambiarI, color2);
+    }//GEN-LAST:event_btnCambiarIMouseEntered
+
+    private void btnCambiarIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarIMouseExited
+        HoverBTN(btnCambiarI, color5);
+    }//GEN-LAST:event_btnCambiarIMouseExited
+
+    private void HoverBTN(JLabel lbl, Color color) {
+        lbl.setOpaque(true);
+        lbl.setBackground(color);
+    }
+    
     private void ColorTabla() {
         DefaultTableModel modelo = new DefaultTableModel(new String[]{"CATEGORIAS"},1);
         tblCategoria.setModel(modelo);
