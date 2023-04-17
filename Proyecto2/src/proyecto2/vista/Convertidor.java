@@ -32,25 +32,26 @@ public class Convertidor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        opcionesI = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cmbUser = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        chk1 = new javax.swing.JCheckBox();
+        chk2 = new javax.swing.JCheckBox();
+        chk3 = new javax.swing.JCheckBox();
+        chk4 = new javax.swing.JCheckBox();
+        chk5 = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnEjecutar = new javax.swing.JButton();
         proB = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -78,20 +79,20 @@ public class Convertidor extends javax.swing.JFrame {
         cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setBackground(new java.awt.Color(255, 221, 154));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("AGREGAR");
-        jButton1.setFocusPainted(false);
+        btnAgregar.setBackground(new java.awt.Color(255, 221, 154));
+        btnAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgregar.setText("AGREGAR");
+        btnAgregar.setFocusPainted(false);
 
-        jButton2.setBackground(new java.awt.Color(255, 221, 154));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("REGRESAR");
-        jButton2.setFocusPainted(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(255, 221, 154));
+        btnRegresar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnRegresar.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegresar.setText("REGRESAR");
+        btnRegresar.setFocusPainted(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -100,8 +101,8 @@ public class Convertidor extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
+                .addGap(21, 21, 21)
+                .addComponent(btnRegresar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
@@ -111,7 +112,7 @@ public class Convertidor extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,8 +124,8 @@ public class Convertidor extends javax.swing.JFrame {
                     .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnAgregar)
+                    .addComponent(btnRegresar))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -174,43 +175,48 @@ public class Convertidor extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 244, 203));
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 244, 203));
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setText("JPEG A BMP Y VICEVERSA");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        chk1.setBackground(new java.awt.Color(255, 244, 203));
+        opcionesI.add(chk1);
+        chk1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        chk1.setForeground(new java.awt.Color(0, 0, 0));
+        chk1.setText("JPEG A BMP Y VICEVERSA");
+        chk1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                chk1ActionPerformed(evt);
             }
         });
 
-        jCheckBox2.setBackground(new java.awt.Color(255, 244, 203));
-        jCheckBox2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox2.setText("COPIA JPEG");
+        chk2.setBackground(new java.awt.Color(255, 244, 203));
+        opcionesI.add(chk2);
+        chk2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        chk2.setForeground(new java.awt.Color(0, 0, 0));
+        chk2.setText("COPIA JPEG");
 
-        jCheckBox3.setBackground(new java.awt.Color(255, 244, 203));
-        jCheckBox3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox3.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox3.setText("ROJO - VERDE - AZUL - SEPIA");
+        chk3.setBackground(new java.awt.Color(255, 244, 203));
+        opcionesI.add(chk3);
+        chk3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        chk3.setForeground(new java.awt.Color(0, 0, 0));
+        chk3.setText("ROJO - VERDE - AZUL - SEPIA");
 
-        jCheckBox4.setBackground(new java.awt.Color(255, 244, 203));
-        jCheckBox4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox4.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox4.setText("MODIFICAR IMAGEN");
+        chk4.setBackground(new java.awt.Color(255, 244, 203));
+        opcionesI.add(chk4);
+        chk4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        chk4.setForeground(new java.awt.Color(0, 0, 0));
+        chk4.setText("MODIFICAR IMAGEN");
 
-        jCheckBox5.setBackground(new java.awt.Color(255, 244, 203));
-        jCheckBox5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox5.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox5.setText("BLANCO Y NEGRO");
+        chk5.setBackground(new java.awt.Color(255, 244, 203));
+        opcionesI.add(chk5);
+        chk5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        chk5.setForeground(new java.awt.Color(0, 0, 0));
+        chk5.setText("BLANCO Y NEGRO");
 
         jPanel4.setBackground(new java.awt.Color(255, 244, 203));
 
-        jButton3.setBackground(new java.awt.Color(255, 221, 154));
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("EJECUTAR EN PARALELO");
-        jButton3.setFocusPainted(false);
+        btnEjecutar.setBackground(new java.awt.Color(255, 221, 154));
+        btnEjecutar.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        btnEjecutar.setForeground(new java.awt.Color(0, 0, 0));
+        btnEjecutar.setText("EJECUTAR EN PARALELO");
+        btnEjecutar.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -218,13 +224,13 @@ public class Convertidor extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 31, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addComponent(btnEjecutar))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82))
         );
 
@@ -253,11 +259,11 @@ public class Convertidor extends javax.swing.JFrame {
                     .addComponent(proB, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jCheckBox4)
-                            .addComponent(jCheckBox2)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox3))
+                            .addComponent(chk5)
+                            .addComponent(chk4)
+                            .addComponent(chk2)
+                            .addComponent(chk1)
+                            .addComponent(chk3))
                         .addGap(67, 67, 67)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(37, 37, 37))
@@ -268,15 +274,15 @@ public class Convertidor extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jCheckBox1)
+                        .addComponent(chk1)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox2)
+                        .addComponent(chk2)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox3)
+                        .addComponent(chk3)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox4)
+                        .addComponent(chk4)
                         .addGap(18, 18, 18)
-                        .addComponent(jCheckBox5))
+                        .addComponent(chk5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -311,15 +317,15 @@ public class Convertidor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         Inicio inicio = new Inicio();
         this.setVisible(false);
         inicio.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void chk1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_chk1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -357,16 +363,16 @@ public class Convertidor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEjecutar;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JCheckBox chk1;
+    private javax.swing.JCheckBox chk2;
+    private javax.swing.JCheckBox chk3;
+    private javax.swing.JCheckBox chk4;
+    private javax.swing.JCheckBox chk5;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbUser;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -378,6 +384,7 @@ public class Convertidor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.ButtonGroup opcionesI;
     private javax.swing.JProgressBar proB;
     // End of variables declaration//GEN-END:variables
 }
