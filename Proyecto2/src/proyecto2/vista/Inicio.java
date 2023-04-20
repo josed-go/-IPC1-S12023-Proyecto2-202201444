@@ -5,6 +5,8 @@
 package proyecto2.vista;
 
 import java.awt.Color;
+import proyecto2.controlador.CategoriaControlador;
+import proyecto2.controlador.UsuarioControlador;
 
 /**
  *
@@ -15,6 +17,8 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
+    
+    CategoriaControlador categoriaC = new CategoriaControlador();
     public Inicio() {
         initComponents();
         this.getContentPane().setBackground(new Color(255,221,154));
@@ -33,7 +37,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,8 +64,8 @@ public class Inicio extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("USUARIO");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 228));
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtUser.setBackground(new java.awt.Color(255, 255, 228));
+        txtUser.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         btnIngresar.setBackground(new java.awt.Color(255, 221, 154));
         btnIngresar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -84,7 +88,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 66, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -106,7 +110,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(btnIngresar)
                 .addContainerGap(178, Short.MAX_VALUE))
@@ -225,6 +229,14 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        UsuarioControlador userC = new UsuarioControlador();
+
+        userC.CrearUsuario(txtUser.getText());
+        userC.UsuarioLog(txtUser.getText());
+        
+        categoriaC.CrearCategoriaGeneral(txtUser.getText());
+        
+        
         Biblioteca bi = new Biblioteca();
         this.setVisible(false);
         bi.setVisible(true);  
@@ -290,6 +302,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

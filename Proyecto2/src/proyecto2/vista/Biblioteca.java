@@ -9,6 +9,9 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import proyecto2.controlador.CategoriaControlador;
+import proyecto2.controlador.UsuarioControlador;
+import proyecto2.modelo.Categoria;
 
 /**
  *
@@ -26,8 +29,15 @@ public class Biblioteca extends javax.swing.JFrame {
     Color color4 = new Color(255,244,203);
     Color color5 = new Color(255,255,228);
     
+    CategoriaControlador categoriaC = new CategoriaControlador();
+    UsuarioControlador userC = new UsuarioControlador();
+    
     public Biblioteca() {
         initComponents();
+        
+        categoriaC.CategoriaUsuario(userC.UsuarioLogeado());
+        lblUser.setText(userC.UsuarioLogeado().toUpperCase());
+
         this.getContentPane().setBackground(new Color(255,255,228));
         ColorTabla();
     }
@@ -44,7 +54,7 @@ public class Biblioteca extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCategoria = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         btnACategoria = new javax.swing.JButton();
         btnECategoria = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -89,14 +99,14 @@ public class Biblioteca extends javax.swing.JFrame {
         tblCategoria.setSelectionBackground(new java.awt.Color(255, 233, 179));
         jScrollPane1.setViewportView(tblCategoria);
 
-        jButton1.setBackground(new java.awt.Color(255, 221, 154));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("SALIR");
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setBackground(new java.awt.Color(255, 221, 154));
+        btnSalir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(0, 0, 0));
+        btnSalir.setText("SALIR");
+        btnSalir.setFocusPainted(false);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -120,7 +130,7 @@ public class Biblioteca extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnACategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                     .addComponent(btnECategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -129,7 +139,7 @@ public class Biblioteca extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -145,7 +155,7 @@ public class Biblioteca extends javax.swing.JFrame {
         lblUser.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblUser.setForeground(new java.awt.Color(0, 0, 0));
         lblUser.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblUser.setText("José");
+        lblUser.setText("user");
 
         btnAImagen.setBackground(new java.awt.Color(255, 221, 154));
         btnAImagen.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -262,11 +272,12 @@ public class Biblioteca extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        
         Inicio inicio = new Inicio();
         this.setVisible(false);
         inicio.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnCambiarDMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarDMouseEntered
         HoverBTN(btnCambiarD, color2);
@@ -284,13 +295,17 @@ public class Biblioteca extends javax.swing.JFrame {
         HoverBTN(btnCambiarI, color5);
     }//GEN-LAST:event_btnCambiarIMouseExited
 
+    /*public void label(String user) {
+        lblUser.setText(user);
+    }*/
+    
     private void HoverBTN(JLabel lbl, Color color) {
         lbl.setOpaque(true);
         lbl.setBackground(color);
     }
     
     private void ColorTabla() {
-        DefaultTableModel modelo = new DefaultTableModel(new String[]{"CATEGORIAS"},1);
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{"CATEGORIAS"},categoriaC.ObtenerCategorias().size());
         tblCategoria.setModel(modelo);
         
         tblCategoria.getTableHeader().setBackground(color1);
@@ -300,8 +315,11 @@ public class Biblioteca extends javax.swing.JFrame {
         tblCategoria.setBackground(color5);
         
         TableModel modeloDatos = tblCategoria.getModel();
-        
-        modeloDatos.setValueAt("Hola", 0, 0);
+        for(int i = 0; i < categoriaC.ObtenerCategorias().size(); i++) {
+            Categoria categoria = categoriaC.ObtenerCategorias().get(i);
+            modeloDatos.setValueAt(categoria.getNombre(), i, 0);
+            
+        } 
     }
     
     /**
@@ -346,7 +364,7 @@ public class Biblioteca extends javax.swing.JFrame {
     private javax.swing.JLabel btnCambiarI;
     private javax.swing.JButton btnECategoria;
     private javax.swing.JButton btnEImagen;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
