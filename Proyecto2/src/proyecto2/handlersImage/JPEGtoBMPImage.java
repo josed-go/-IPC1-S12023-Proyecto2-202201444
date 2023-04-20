@@ -1,20 +1,18 @@
 package proyecto2.handlersImage;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import proyecto2.handlers.ImageHandler;
 
-//CLASE PARA PASAR IMAGEN A BLANCO Y NEGRO
 
-public class JPEGImageHandlerBN extends ImageHandler{
+public class JPEGtoBMPImage extends ImageHandler {
     String nombreI;
     BufferedImage jpg;
     BufferedImage bmp;
     File bmpTemp;
 
-    public JPEGImageHandlerBN(String filename) {
+    public JPEGtoBMPImage(String filename) {
         super(filename);
         File file = new File(filename);
         this.nombreI = file.getName().replaceAll("\\.\\w+$", "");
@@ -27,19 +25,12 @@ public class JPEGImageHandlerBN extends ImageHandler{
         bmpTemp = new File("src/imagenes/temporal/bmpTemp.bmp");
         ImageIO.write(jpg, "bmp", bmpTemp);
         bmp = ImageIO.read(bmpTemp);
+        
     }
 
     @Override
     public void generateFiles() throws Exception {
-        for(int i = 0; i < bmp.getWidth(); i++) {
-            for(int j = 0; j < bmp.getHeight(); j++) {
-                Color color = new Color(bmp.getRGB(i, j));
-                int promedio = (color.getBlue()+ color.getGreen() + color.getRed())/3;
-                Color nuevo = new Color(promedio, promedio, promedio);
-                bmp.setRGB(i, j, nuevo.getRGB());
-            }
-        }
-        ImageIO.write(bmp, "jpg", new File("src/imagenes/BN-"+nombreI+".jpg"));
+        ImageIO.write(jpg, "bmp", new File("src/imagenes/converted-"+nombreI+".bmp"));
         bmpTemp.delete();
     }
     

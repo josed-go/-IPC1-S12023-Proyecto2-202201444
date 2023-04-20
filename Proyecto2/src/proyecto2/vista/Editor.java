@@ -5,6 +5,21 @@
 package proyecto2.vista;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import proyecto2.handlers.JPEGHandler;
+import proyecto2.handlersImage.BMPtoJPEGImage;
+import proyecto2.handlersImage.JPEGImageHandlerBN;
+import proyecto2.handlersImage.JPEGtoBMPImage;
 
 /**
  *
@@ -15,9 +30,18 @@ public class Editor extends javax.swing.JFrame {
     /**
      * Creates new form Editor
      */
+    
+    JFileChooser fc = new JFileChooser();
+    
+    ImageIcon image;
+    
+    String preview;
+    String extension;
+    
     public Editor() {
         initComponents();
         this.getContentPane().setBackground(new Color(255,244,203));
+        ValoresButtons();
     }
 
     /**
@@ -31,9 +55,9 @@ public class Editor extends javax.swing.JFrame {
 
         opciones = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
         lblImagen = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblRuta = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -42,7 +66,7 @@ public class Editor extends javax.swing.JFrame {
         opcCu = new javax.swing.JRadioButton();
         opcT = new javax.swing.JRadioButton();
         opcCi = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
+        btnEjecutar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,17 +74,22 @@ public class Editor extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 233, 179));
 
-        jButton1.setBackground(new java.awt.Color(255, 221, 154));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("SELECCIONAR IMAGEN");
-        jButton1.setFocusPainted(false);
+        btnSeleccionar.setBackground(new java.awt.Color(255, 221, 154));
+        btnSeleccionar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnSeleccionar.setForeground(new java.awt.Color(0, 0, 0));
+        btnSeleccionar.setText("SELECCIONAR IMAGEN");
+        btnSeleccionar.setFocusPainted(false);
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionarActionPerformed(evt);
+            }
+        });
 
         lblImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("ruta imagen");
+        lblRuta.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblRuta.setForeground(new java.awt.Color(0, 0, 0));
+        lblRuta.setText("RUTA IMAGEN");
 
         btnRegresar.setBackground(new java.awt.Color(255, 221, 154));
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -81,8 +110,8 @@ public class Editor extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                    .addComponent(lblRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRegresar))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -94,9 +123,9 @@ public class Editor extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addComponent(lblRuta)
                 .addGap(52, 52, 52)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(72, Short.MAX_VALUE))
         );
 
@@ -141,11 +170,16 @@ public class Editor extends javax.swing.JFrame {
         opcCi.setFocusPainted(false);
         opcCi.setOpaque(false);
 
-        jButton2.setBackground(new java.awt.Color(255, 221, 154));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("EJECUTAR");
-        jButton2.setFocusPainted(false);
+        btnEjecutar.setBackground(new java.awt.Color(255, 221, 154));
+        btnEjecutar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnEjecutar.setForeground(new java.awt.Color(0, 0, 0));
+        btnEjecutar.setText("EJECUTAR");
+        btnEjecutar.setFocusPainted(false);
+        btnEjecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -166,7 +200,7 @@ public class Editor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(jLabel1)))
@@ -194,7 +228,7 @@ public class Editor extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(opcCi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(73, 73, 73))
         );
 
@@ -223,6 +257,97 @@ public class Editor extends javax.swing.JFrame {
         inicio.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
+        fc.setDialogTitle("Buscar imagen");
+        
+        if(fc.showOpenDialog(this) ==  JFileChooser.APPROVE_OPTION) {
+            preview = fc.getSelectedFile().toString();
+            extension = preview.replaceAll("^.*\\.(.*)$", "$1");
+            setImageLabel(lblImagen, preview);
+            lblRuta.setText(preview);
+        }
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+        if(opciones.getSelection() != null ) {
+            switch(opciones.getSelection().getActionCommand()) {
+                case "JPEGABMP": 
+                    
+                        if(extension.equals("jpg")) {
+                            JPEGtoBMPImage imageJPGBMP = new JPEGtoBMPImage(preview);
+                            try {
+                                JPEGHandler.runHandler(imageJPGBMP);
+                                JOptionPane.showMessageDialog(this, "Imagen generada con exito. Se guardó en la carpeta imagenes.");
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        } else if(extension.equals("bmp")) {
+                            BMPtoJPEGImage imageBMPJPEG = new BMPtoJPEGImage(preview);
+                            try {
+                                JPEGHandler.runHandler(imageBMPJPEG);
+                                JOptionPane.showMessageDialog(this, "Imagen generada con exito. Se guardó en la carpeta imagenes.");
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    
+                    break; 
+                case "COPIAJPEG":
+                    
+                    break;
+                case "RVAS":
+                    
+                    break;
+                case "MODIFICAR":
+                    
+                    break;
+                case "BLANCONEGRO":
+                    if (!extension.equals("jpg")) {
+                        JOptionPane.showMessageDialog(this, "La imagen debe ser JPG.");
+                    } else {
+                        JPEGImageHandlerBN imageHBN = new JPEGImageHandlerBN(preview);
+                        try {
+                            JPEGHandler.runHandler(imageHBN);
+                            JOptionPane.showMessageDialog(this, "Imagen generada con exito. Se guardó en la carpeta imagenes.");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                        
+                    break;
+                    
+                default: 
+                    break;
+            }
+        }
+        
+    }//GEN-LAST:event_btnEjecutarActionPerformed
+    
+    private void setImageLabel(JLabel labelName, String root) {
+        if(!extension.equals("bmp")) {
+            image = new ImageIcon(root);
+            Icon icon = new ImageIcon(image.getImage().getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT));
+            labelName.setIcon(icon);
+        } else {
+
+            try {
+                Icon icon = new ImageIcon(ImageIO.read(fc.getSelectedFile()).getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT));
+                labelName.setIcon(icon);
+            } catch (IOException ex) {
+                Logger.getLogger(Editor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
+    private void ValoresButtons() {
+        opcU.setActionCommand("JPEGABMP");
+        opcD.setActionCommand("COPIAJPEG");
+        opcT.setActionCommand("RVAS");
+        opcCu.setActionCommand("MODIFICAR");
+        opcCi.setActionCommand("BLANCONEGRO");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -259,15 +384,15 @@ public class Editor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEjecutar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblImagen;
+    private javax.swing.JLabel lblRuta;
     private javax.swing.JRadioButton opcCi;
     private javax.swing.JRadioButton opcCu;
     private javax.swing.JRadioButton opcD;
