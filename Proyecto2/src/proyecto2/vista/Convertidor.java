@@ -180,6 +180,7 @@ public class Convertidor extends javax.swing.JFrame {
         chk1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk1.setForeground(new java.awt.Color(0, 0, 0));
         chk1.setText("JPEG A BMP Y VICEVERSA");
+        chk1.setFocusPainted(false);
         chk1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chk1ActionPerformed(evt);
@@ -191,24 +192,28 @@ public class Convertidor extends javax.swing.JFrame {
         chk2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk2.setForeground(new java.awt.Color(0, 0, 0));
         chk2.setText("COPIA JPEG");
+        chk2.setFocusPainted(false);
 
         chk3.setBackground(new java.awt.Color(255, 244, 203));
         opcionesI.add(chk3);
         chk3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk3.setForeground(new java.awt.Color(0, 0, 0));
         chk3.setText("ROJO - VERDE - AZUL - SEPIA");
+        chk3.setFocusPainted(false);
 
         chk4.setBackground(new java.awt.Color(255, 244, 203));
         opcionesI.add(chk4);
         chk4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk4.setForeground(new java.awt.Color(0, 0, 0));
         chk4.setText("MODIFICAR IMAGEN");
+        chk4.setFocusPainted(false);
 
         chk5.setBackground(new java.awt.Color(255, 244, 203));
         opcionesI.add(chk5);
         chk5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk5.setForeground(new java.awt.Color(0, 0, 0));
         chk5.setText("BLANCO Y NEGRO");
+        chk5.setFocusPainted(false);
 
         jPanel4.setBackground(new java.awt.Color(255, 244, 203));
 

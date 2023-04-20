@@ -110,30 +110,35 @@ public class Editor extends javax.swing.JFrame {
         opcD.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         opcD.setForeground(new java.awt.Color(0, 0, 0));
         opcD.setText("COPIA JPEG");
+        opcD.setFocusPainted(false);
         opcD.setOpaque(false);
 
         opciones.add(opcU);
         opcU.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         opcU.setForeground(new java.awt.Color(0, 0, 0));
         opcU.setText("JPEG A BMP Y VICEVERSA");
+        opcU.setFocusPainted(false);
         opcU.setOpaque(false);
 
         opciones.add(opcCu);
         opcCu.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         opcCu.setForeground(new java.awt.Color(0, 0, 0));
         opcCu.setText("MODIFICAR IMAGEN");
+        opcCu.setFocusPainted(false);
         opcCu.setOpaque(false);
 
         opciones.add(opcT);
         opcT.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         opcT.setForeground(new java.awt.Color(0, 0, 0));
         opcT.setText("ROJO - VERDE - AZUL - SEPIA");
+        opcT.setFocusPainted(false);
         opcT.setOpaque(false);
 
         opciones.add(opcCi);
         opcCi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         opcCi.setForeground(new java.awt.Color(0, 0, 0));
         opcCi.setText("BLANCO Y NEGRO");
+        opcCi.setFocusPainted(false);
         opcCi.setOpaque(false);
 
         jButton2.setBackground(new java.awt.Color(255, 221, 154));
