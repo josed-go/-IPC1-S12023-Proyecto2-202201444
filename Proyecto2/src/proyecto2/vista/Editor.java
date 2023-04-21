@@ -16,9 +16,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import proyecto2.handlers.BmpHandlerCopy;
 import proyecto2.handlers.JPEGHandler;
 import proyecto2.handlersImage.BMPtoJPEGImage;
 import proyecto2.handlersImage.JPEGImageHandlerBN;
+import proyecto2.handlersImage.JPEGImageHandlerColors;
+import proyecto2.handlersImage.JPEGImageHandlerRotator;
 import proyecto2.handlersImage.JPEGtoBMPImage;
 
 /**
@@ -36,7 +39,7 @@ public class Editor extends javax.swing.JFrame {
     ImageIcon image;
     
     String preview;
-    String extension;
+    String extension = "";
     
     public Editor() {
         initComponents();
@@ -269,7 +272,7 @@ public class Editor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
-        if(opciones.getSelection() != null ) {
+        if(opciones.getSelection() != null && !extension.equals("")) {
             switch(opciones.getSelection().getActionCommand()) {
                 case "JPEGABMP": 
                     
@@ -293,12 +296,41 @@ public class Editor extends javax.swing.JFrame {
                     
                     break; 
                 case "COPIAJPEG":
-                    
+                    BmpHandlerCopy imageCopy = new BmpHandlerCopy(preview);
+                    try {
+                                JPEGHandler.runHandler(imageCopy);
+                                JOptionPane.showMessageDialog(this, "Imagen generada con exito. Se guardó en la carpeta imagenes.");
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                     break;
                 case "RVAS":
-                    
-                    break;
+                    if(extension.equals("jpg")) {
+                        JPEGImageHandlerColors imageRGBS = new JPEGImageHandlerColors(preview);
+                        try {
+                            JPEGHandler.runHandler(imageRGBS);
+                            JOptionPane.showMessageDialog(this, "Imagenes generadas con exito. Se guardaron en la carpeta imagenes.");
+                        }catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        
+                    }else {
+                        JOptionPane.showMessageDialog(this, "La imagen debe ser JPG.");
+                    }
+                    break; 
                 case "MODIFICAR":
+                    if(extension.equals("jpg")) {
+                        JPEGImageHandlerRotator imageRotar = new JPEGImageHandlerRotator(preview);
+                        try {
+                            JPEGHandler.runHandler(imageRotar);
+                            JOptionPane.showMessageDialog(this, "Imagenes generadas con exito. Se guardaron en la carpeta imagenes.");
+                        }catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        
+                    }else {
+                        JOptionPane.showMessageDialog(this, "La imagen debe ser JPG.");
+                    }
                     
                     break;
                 case "BLANCONEGRO":
@@ -319,6 +351,8 @@ public class Editor extends javax.swing.JFrame {
                 default: 
                     break;
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar una imagen y la opción.");
         }
         
     }//GEN-LAST:event_btnEjecutarActionPerformed

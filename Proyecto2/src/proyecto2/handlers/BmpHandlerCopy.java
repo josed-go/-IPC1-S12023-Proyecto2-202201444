@@ -35,7 +35,7 @@ public class BmpHandlerCopy extends ImageHandler {
         super(filename);
         int indiceInicial = super.getFileName().lastIndexOf("-") + 1;
         int indiceFinal = super.getFileName().lastIndexOf(".");        
-        this.copyname = "copy-" + filename.substring(indiceInicial, indiceFinal);
+        this.copyname = filename.substring(indiceInicial, indiceFinal);
     }
 
     /**
@@ -56,7 +56,8 @@ public class BmpHandlerCopy extends ImageHandler {
 	*
      */
     public void generateFiles() throws Exception {
-        FileOutputStream output = new FileOutputStream("./Temporal/" + copyname + ".jpg");
+        System.out.println("src/imagenes/copia-" + copyname + ".jpg");
+        FileOutputStream output = new FileOutputStream("src/imagenes/copia-" + copyname + ".jpg");
         output.write(filebytes);
         output.close();
            
