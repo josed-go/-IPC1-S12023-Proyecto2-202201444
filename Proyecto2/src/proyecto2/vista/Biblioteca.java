@@ -7,6 +7,7 @@ package proyecto2.vista;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import proyecto2.controlador.CategoriaControlador;
@@ -40,6 +41,9 @@ public class Biblioteca extends javax.swing.JFrame {
 
         this.getContentPane().setBackground(new Color(255,255,228));
         ColorTabla();
+        
+        btnECategoria.setVisible(false);
+        btnCancelar.setVisible(false);
     }
 
     /**
@@ -57,6 +61,7 @@ public class Biblioteca extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnACategoria = new javax.swing.JButton();
         btnECategoria = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblUser = new javax.swing.JLabel();
         btnAImagen = new javax.swing.JButton();
@@ -97,6 +102,11 @@ public class Biblioteca extends javax.swing.JFrame {
         });
         tblCategoria.setGridColor(new java.awt.Color(255, 210, 129));
         tblCategoria.setSelectionBackground(new java.awt.Color(255, 233, 179));
+        tblCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCategoriaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCategoria);
 
         btnSalir.setBackground(new java.awt.Color(255, 221, 154));
@@ -115,12 +125,32 @@ public class Biblioteca extends javax.swing.JFrame {
         btnACategoria.setForeground(new java.awt.Color(0, 0, 0));
         btnACategoria.setText("AGREGAR");
         btnACategoria.setFocusPainted(false);
+        btnACategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnACategoriaActionPerformed(evt);
+            }
+        });
 
         btnECategoria.setBackground(new java.awt.Color(255, 221, 154));
         btnECategoria.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnECategoria.setForeground(new java.awt.Color(0, 0, 0));
         btnECategoria.setText("ELIMINAR");
         btnECategoria.setFocusPainted(false);
+        btnECategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnECategoriaActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setBackground(new java.awt.Color(255, 221, 154));
+        btnCancelar.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(0, 0, 0));
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,8 +161,11 @@ public class Biblioteca extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnACategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                    .addComponent(btnECategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnACategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                    .addComponent(btnECategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -141,12 +174,14 @@ public class Biblioteca extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar)
+                .addGap(74, 74, 74)
                 .addComponent(btnACategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnECategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 228));
@@ -295,6 +330,39 @@ public class Biblioteca extends javax.swing.JFrame {
         HoverBTN(btnCambiarI, color5);
     }//GEN-LAST:event_btnCambiarIMouseExited
 
+    private void btnACategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnACategoriaActionPerformed
+        btnCancelar.setVisible(false);
+        btnECategoria.setVisible(false);
+        tblCategoria.clearSelection();
+        String categoria = JOptionPane.showInputDialog(this, "Ingresa el nombre de la categoria","");
+        if(categoria != null) {
+            categoriaC.AgregarCategoria(categoria);
+            ColorTabla();
+        }
+    }//GEN-LAST:event_btnACategoriaActionPerformed
+
+    private void tblCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriaMouseClicked
+        if(tblCategoria.getSelectedRow() >= 0) {
+            btnECategoria.setVisible(true);
+            btnCancelar.setVisible(true);
+        }
+    }//GEN-LAST:event_tblCategoriaMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        btnCancelar.setVisible(false);
+        btnECategoria.setVisible(false);
+        tblCategoria.clearSelection();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnECategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnECategoriaActionPerformed
+        categoriaC.EliminarCategoria((String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0));
+        JOptionPane.showMessageDialog(this, "Categoria eliminada.");
+        btnCancelar.setVisible(false);
+        btnECategoria.setVisible(false);
+        tblCategoria.clearSelection();
+        ColorTabla();
+    }//GEN-LAST:event_btnECategoriaActionPerformed
+
     /*public void label(String user) {
         lblUser.setText(user);
     }*/
@@ -362,6 +430,7 @@ public class Biblioteca extends javax.swing.JFrame {
     private javax.swing.JButton btnAImagen;
     private javax.swing.JLabel btnCambiarD;
     private javax.swing.JLabel btnCambiarI;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnECategoria;
     private javax.swing.JButton btnEImagen;
     private javax.swing.JButton btnSalir;

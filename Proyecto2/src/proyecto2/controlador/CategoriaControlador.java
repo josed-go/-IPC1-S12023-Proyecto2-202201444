@@ -9,10 +9,37 @@ public class CategoriaControlador {
     static ArrayList<Categoria> arrayCategoria = new ArrayList<>();
     static ArrayList<Categoria> arrayCateUsuario = new ArrayList<>();
     
+    UsuarioControlador userC = new UsuarioControlador();
+    
     public void CrearCategoriaGeneral(String user) {
         if(!ValidarUsuario(user)) {
             arrayCategoria.add(new Categoria("GENERAL", user));
         }
+    }
+    
+    public void AgregarCategoria(String categoria) {
+        if(!ValidarCategoria(categoria)) {
+            arrayCategoria.add(new Categoria(categoria, userC.UsuarioLogeado()));
+            CategoriaUsuario(userC.UsuarioLogeado());
+        }
+    }
+    
+    public void EliminarCategoria(String categoria) {
+        for(int i = 0; i < arrayCategoria.size(); i++) {
+            if(arrayCategoria.get(i).getNombre().equalsIgnoreCase(categoria) && arrayCategoria.get(i).getUsuario().equalsIgnoreCase(userC.UsuarioLogeado())) {
+                arrayCategoria.remove(i);
+                CategoriaUsuario(userC.UsuarioLogeado());
+            }
+        }
+    }
+    
+    public boolean ValidarCategoria(String categoria) {
+        for(Categoria cate: arrayCategoria) {
+            if(cate.getNombre().equalsIgnoreCase(categoria) && cate.getUsuario().equals(userC.UsuarioLogeado())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public boolean ValidarUsuario(String user) {
