@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import proyecto2.handlers.BmpHandlerCopy;
 import proyecto2.handlers.JPEGHandler;
 import proyecto2.handlersImage.BMPtoJPEGImage;
+import proyecto2.handlersImage.JPEGImageCopy;
 import proyecto2.handlersImage.JPEGImageHandlerBN;
 import proyecto2.handlersImage.JPEGImageHandlerColors;
 import proyecto2.handlersImage.JPEGImageHandlerRotator;
@@ -296,10 +297,10 @@ public class Editor extends javax.swing.JFrame {
                     
                     break; 
                 case "COPIAJPEG":
-                    BmpHandlerCopy imageCopy = new BmpHandlerCopy(preview);
+                    JPEGImageCopy imageCopy = new JPEGImageCopy(preview);
                     try {
                                 JPEGHandler.runHandler(imageCopy);
-                                JOptionPane.showMessageDialog(this, "Imagen generada con exito. Se guardó en la carpeta imagenes.");
+                                JOptionPane.showMessageDialog(this, "Imagen copiada. Se guardó en la carpeta imagenes.");
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
