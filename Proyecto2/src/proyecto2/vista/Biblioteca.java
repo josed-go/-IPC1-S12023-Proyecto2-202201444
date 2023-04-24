@@ -6,11 +6,16 @@ package proyecto2.vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import proyecto2.controlador.CategoriaControlador;
+import proyecto2.controlador.ImagenControlador;
 import proyecto2.controlador.UsuarioControlador;
 import proyecto2.modelo.Categoria;
 
@@ -24,14 +29,23 @@ public class Biblioteca extends javax.swing.JFrame {
      * Creates new form Biblioteca
      */
     
+    JFileChooser fc = new JFileChooser();
+    
+    ImageIcon image;
+    
+    String preview;
+    
     Color color1 = new Color(255,210,129);
     Color color2 = new Color(255,221,154);
     Color color3 = new Color(255,233,179);
     Color color4 = new Color(255,244,203);
     Color color5 = new Color(255,255,228);
     
+    int cont;
+    
     CategoriaControlador categoriaC = new CategoriaControlador();
     UsuarioControlador userC = new UsuarioControlador();
+    ImagenControlador imagenC = new ImagenControlador();
     
     public Biblioteca() {
         initComponents();
@@ -44,6 +58,8 @@ public class Biblioteca extends javax.swing.JFrame {
         
         btnECategoria.setVisible(false);
         btnCancelar.setVisible(false);
+        btnAImagen.setVisible(false);
+        btnEImagen.setVisible(false);
     }
 
     /**
@@ -123,7 +139,7 @@ public class Biblioteca extends javax.swing.JFrame {
         btnACategoria.setBackground(new java.awt.Color(255, 221, 154));
         btnACategoria.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnACategoria.setForeground(new java.awt.Color(0, 0, 0));
-        btnACategoria.setText("AGREGAR");
+        btnACategoria.setText(" AGREGAR CATEGORIA");
         btnACategoria.setFocusPainted(false);
         btnACategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +150,7 @@ public class Biblioteca extends javax.swing.JFrame {
         btnECategoria.setBackground(new java.awt.Color(255, 221, 154));
         btnECategoria.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnECategoria.setForeground(new java.awt.Color(0, 0, 0));
-        btnECategoria.setText("ELIMINAR");
+        btnECategoria.setText("ELIMINAR CATEGORIA");
         btnECategoria.setFocusPainted(false);
         btnECategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,11 +177,11 @@ public class Biblioteca extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnACategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                    .addComponent(btnECategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnCancelar))
+                    .addComponent(btnACategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnECategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,6 +213,11 @@ public class Biblioteca extends javax.swing.JFrame {
         btnAImagen.setForeground(new java.awt.Color(0, 0, 0));
         btnAImagen.setText("AGREGAR IMAGEN");
         btnAImagen.setFocusPainted(false);
+        btnAImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAImagenActionPerformed(evt);
+            }
+        });
 
         btnEImagen.setBackground(new java.awt.Color(255, 221, 154));
         btnEImagen.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -204,12 +225,19 @@ public class Biblioteca extends javax.swing.JFrame {
         btnEImagen.setText("ELIMINAR IMAGEN");
         btnEImagen.setFocusPainted(false);
 
+        lblImagen.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
+        lblImagen.setForeground(new java.awt.Color(0, 0, 0));
+        lblImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImagen.setText("NO HAY IMAGEN");
         lblImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         btnCambiarD.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         btnCambiarD.setForeground(new java.awt.Color(0, 0, 0));
         btnCambiarD.setText(">");
         btnCambiarD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCambiarDMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCambiarDMouseEntered(evt);
             }
@@ -222,6 +250,9 @@ public class Biblioteca extends javax.swing.JFrame {
         btnCambiarI.setForeground(new java.awt.Color(0, 0, 0));
         btnCambiarI.setText("<");
         btnCambiarI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCambiarIMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCambiarIMouseEntered(evt);
             }
@@ -233,7 +264,7 @@ public class Biblioteca extends javax.swing.JFrame {
         lblNimagen.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblNimagen.setForeground(new java.awt.Color(0, 0, 0));
         lblNimagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNimagen.setText("NOMBRE IIMAGEN");
+        lblNimagen.setText("RUTA IMAGEN");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,9 +272,6 @@ public class Biblioteca extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(215, 215, 215)
                         .addComponent(btnAImagen)
@@ -251,12 +279,15 @@ public class Biblioteca extends javax.swing.JFrame {
                         .addComponent(btnEImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCambiarI)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCambiarD)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnCambiarI)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCambiarD)))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 185, Short.MAX_VALUE)
@@ -273,11 +304,12 @@ public class Biblioteca extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(lblUser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(239, 239, 239)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(236, 236, 236)
                                 .addComponent(btnCambiarD)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblNimagen)
@@ -308,7 +340,6 @@ public class Biblioteca extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
         Inicio inicio = new Inicio();
         this.setVisible(false);
         inicio.setVisible(true);
@@ -345,13 +376,28 @@ public class Biblioteca extends javax.swing.JFrame {
         if(tblCategoria.getSelectedRow() >= 0) {
             btnECategoria.setVisible(true);
             btnCancelar.setVisible(true);
+            btnACategoria.setVisible(false);
+            imagenC.ImagenesCategoria((String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0));
+            cont = 0;
+            btnAImagen.setVisible(true);
+            if(imagenC.ObtenerImagenes().size() > 0) {
+                CargarImagenes(cont);
+                btnEImagen.setVisible(true);
+            }
+            
         }
     }//GEN-LAST:event_tblCategoriaMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         btnCancelar.setVisible(false);
         btnECategoria.setVisible(false);
+        btnACategoria.setVisible(true);
+        btnAImagen.setVisible(false);
+        btnEImagen.setVisible(false);
         tblCategoria.clearSelection();
+        lblImagen.setText("NO HAY IMAGEN");
+        lblImagen.setIcon(null);
+        lblNimagen.setText("RUTA IMAGEN");
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnECategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnECategoriaActionPerformed
@@ -363,9 +409,50 @@ public class Biblioteca extends javax.swing.JFrame {
         ColorTabla();
     }//GEN-LAST:event_btnECategoriaActionPerformed
 
-    /*public void label(String user) {
-        lblUser.setText(user);
-    }*/
+    private void btnAImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAImagenActionPerformed
+        if(tblCategoria.getSelectedRow() >= 0) {
+            fc.setDialogTitle("Buscar imagen");
+        
+            if(fc.showOpenDialog(this) ==  JFileChooser.APPROVE_OPTION) {
+                preview = fc.getSelectedFile().toString();
+                lblNimagen.setText(preview);
+                setImageLabel(lblImagen, preview);
+                imagenC.AgregarImagen(preview, (String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0));
+                btnEImagen.setVisible(true);
+                imagenC.ImagenesCategoria((String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar una categoria");
+        }
+        
+    }//GEN-LAST:event_btnAImagenActionPerformed
+
+    private void btnCambiarIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarIMouseClicked
+        if(cont >= 1) {
+            cont = cont-1;
+            CargarImagenes(cont);
+        }
+    }//GEN-LAST:event_btnCambiarIMouseClicked
+
+    private void btnCambiarDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCambiarDMouseClicked
+        if(cont != imagenC.ObtenerImagenes().size()-1 && imagenC.ObtenerImagenes().size() != 1) {
+            cont = cont+1;
+            CargarImagenes(cont);
+        }
+    }//GEN-LAST:event_btnCambiarDMouseClicked
+
+    private void CargarImagenes(int contador) {
+        setImageLabel(lblImagen, imagenC.ObtenerImagenes().get(contador));
+        lblNimagen.setText(imagenC.ObtenerImagenes().get(contador));
+    }
+    
+    private void setImageLabel(JLabel labelName, String root) {
+        image = new ImageIcon(root);
+        Icon icon = new ImageIcon(image.getImage().getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT));
+        labelName.setIcon(icon);
+        labelName.repaint();
+        labelName.setText("");
+    }
     
     private void HoverBTN(JLabel lbl, Color color) {
         lbl.setOpaque(true);
