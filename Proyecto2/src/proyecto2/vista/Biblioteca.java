@@ -224,6 +224,11 @@ public class Biblioteca extends javax.swing.JFrame {
         btnEImagen.setForeground(new java.awt.Color(0, 0, 0));
         btnEImagen.setText("ELIMINAR IMAGEN");
         btnEImagen.setFocusPainted(false);
+        btnEImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEImagenActionPerformed(evt);
+            }
+        });
 
         lblImagen.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         lblImagen.setForeground(new java.awt.Color(0, 0, 0));
@@ -313,7 +318,7 @@ public class Biblioteca extends javax.swing.JFrame {
                                 .addComponent(btnCambiarD)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblNimagen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -405,7 +410,13 @@ public class Biblioteca extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Categoria eliminada.");
         btnCancelar.setVisible(false);
         btnECategoria.setVisible(false);
+        btnACategoria.setVisible(true);
+        btnAImagen.setVisible(false);
+        btnEImagen.setVisible(false);
         tblCategoria.clearSelection();
+        lblImagen.setText("NO HAY IMAGEN");
+        lblImagen.setIcon(null);
+        lblNimagen.setText("RUTA IMAGEN");
         ColorTabla();
     }//GEN-LAST:event_btnECategoriaActionPerformed
 
@@ -441,9 +452,35 @@ public class Biblioteca extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCambiarDMouseClicked
 
+    private void btnEImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEImagenActionPerformed
+        imagenC.EliminarImagen((String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0), lblNimagen.getText());
+        JOptionPane.showMessageDialog(this, "Imagen eliminada.");
+        System.out.println("Contador: "+ cont + " | Tamanio imagnees: "+ imagenC.ObtenerImagenes().size());
+        if(cont == 0) {
+            if(cont != 0 ) {
+                CargarImagenes(cont+1);
+            }
+                CargarImagenes(cont);
+            System.out.println("entre al primer if");
+        } else if(cont == imagenC.ObtenerImagenes().size()) {
+            cont = cont-1;
+            CargarImagenes(cont);
+            System.out.println("entre al segundo if");
+        }
+        
+    }//GEN-LAST:event_btnEImagenActionPerformed
+
     private void CargarImagenes(int contador) {
-        setImageLabel(lblImagen, imagenC.ObtenerImagenes().get(contador));
-        lblNimagen.setText(imagenC.ObtenerImagenes().get(contador));
+        if(imagenC.ObtenerImagenes().size() > 0) {
+            setImageLabel(lblImagen, imagenC.ObtenerImagenes().get(contador));
+            lblNimagen.setText(imagenC.ObtenerImagenes().get(contador));
+        } else {
+            lblNimagen.setText("RUTA IMAGEN");
+            lblImagen.setText("NO HAY IMAGEN");
+            lblImagen.setIcon(null);
+            btnEImagen.setVisible(false);
+        }
+        
     }
     
     private void setImageLabel(JLabel labelName, String root) {

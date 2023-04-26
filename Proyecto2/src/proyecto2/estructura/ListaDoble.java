@@ -15,7 +15,7 @@ public class ListaDoble extends EstructuraDeDatos{
         
         NodoImagen nodoAux = primerNodo;
         while(nodoAux != null) {
-            System.out.println(nodoAux.getImagen().getRuta() + "-->");
+            System.out.println(nodoAux.getImagen().getRuta() +" | "+ nodoAux.getImagen().getCategoria()+ " | "+ nodoAux.getImagen().getUsuario()+" -->");
             nodoAux = nodoAux.getSiguiente();
         }
     }
@@ -30,6 +30,7 @@ public class ListaDoble extends EstructuraDeDatos{
             NodoImagen newNodo = new NodoImagen(imagen, null, ultimoNodo);
             ultimoNodo.setSiguiente(newNodo);
             ultimoNodo = newNodo;
+            
         }
         index++;
     }
@@ -65,6 +66,9 @@ public class ListaDoble extends EstructuraDeDatos{
 
     @Override
     public int getSize() {
+        if(primerNodo == null) {
+            return 0;
+        }
         return index;
     }
 
@@ -73,7 +77,7 @@ public class ListaDoble extends EstructuraDeDatos{
         if(i < 0 || i > index) {
             return new IndexOutOfBoundsException();
         }
-        
+
         NodoImagen nodoAux = primerNodo;
         
         for(int j = 0; j < i; j++) {
@@ -105,14 +109,17 @@ public class ListaDoble extends EstructuraDeDatos{
             if(primerNodo != null) {
                 primerNodo.setAnterior(null);
             }            
+            
         } else if (nodoAux == ultimoNodo) {
             ultimoNodo = ultimoNodo.getAnterior();
             ultimoNodo.setSiguiente(null);
+            
         } else {
             nodoAux.getAnterior().setSiguiente(nodoAux.getSiguiente());
             nodoAux.getSiguiente().setAnterior(nodoAux.getAnterior());
+            
         }
-        index--;
+       index--;
     }
     
 }

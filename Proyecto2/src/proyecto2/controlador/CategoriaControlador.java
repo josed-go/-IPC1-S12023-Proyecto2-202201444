@@ -10,6 +10,7 @@ public class CategoriaControlador {
     static ArrayList<Categoria> arrayCateUsuario = new ArrayList<>();
     
     UsuarioControlador userC = new UsuarioControlador();
+    ImagenControlador imagenC = new ImagenControlador();
     
     public void CrearCategoriaGeneral(String user) {
         if(!ValidarUsuario(user)) {
@@ -31,6 +32,7 @@ public class CategoriaControlador {
                 CategoriaUsuario(userC.UsuarioLogeado());
             }
         }
+        imagenC.EliminarImagenes(categoria);
     }
     
     public boolean ValidarCategoria(String categoria) {
