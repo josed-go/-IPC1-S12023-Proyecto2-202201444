@@ -7,6 +7,7 @@ package proyecto2.vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.io.File;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -423,15 +424,28 @@ public class Biblioteca extends javax.swing.JFrame {
     private void btnAImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAImagenActionPerformed
         if(tblCategoria.getSelectedRow() >= 0) {
             fc.setDialogTitle("Buscar imagen");
+            
+            if(!fc.isMultiSelectionEnabled()) {
+                fc.setMultiSelectionEnabled(true);
+            }
+            
+            int value = fc.showOpenDialog(this);
         
-            if(fc.showOpenDialog(this) ==  JFileChooser.APPROVE_OPTION) {
-                preview = fc.getSelectedFile().toString();
+            if(value ==  JFileChooser.APPROVE_OPTION) {
+                File[] images = fc.getSelectedFiles();
+                
+                
+                for(int i = 0; i < images.length; i++) {
+                    imagenC.AgregarImagen(images[i].toString(), (String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0));
+                    
+                }
+                preview = images[images.length-1].toString();
                 lblNimagen.setText(preview);
                 setImageLabel(lblImagen, preview);
-                imagenC.AgregarImagen(preview, (String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0));
                 btnEImagen.setVisible(true);
                 imagenC.ImagenesCategoria((String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0));
             }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Debes seleccionar una categoria");
         }
@@ -455,17 +469,17 @@ public class Biblioteca extends javax.swing.JFrame {
     private void btnEImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEImagenActionPerformed
         imagenC.EliminarImagen((String)tblCategoria.getValueAt(tblCategoria.getSelectedRow(),0), lblNimagen.getText());
         JOptionPane.showMessageDialog(this, "Imagen eliminada.");
-        System.out.println("Contador: "+ cont + " | Tamanio imagnees: "+ imagenC.ObtenerImagenes().size());
         if(cont == 0) {
             if(cont != 0 ) {
                 CargarImagenes(cont+1);
             }
-                CargarImagenes(cont);
-            System.out.println("entre al primer if");
+            CargarImagenes(cont);
         } else if(cont == imagenC.ObtenerImagenes().size()) {
             cont = cont-1;
             CargarImagenes(cont);
-            System.out.println("entre al segundo if");
+        } else {
+            cont = cont-1;
+            CargarImagenes(cont);
         }
         
     }//GEN-LAST:event_btnEImagenActionPerformed
