@@ -27,4 +27,8 @@ public class UsuarioControlador {
         return userLog;
     }
     
+    public ListaSimple Usuarios() {
+        return lista;
+    }
+    
 }

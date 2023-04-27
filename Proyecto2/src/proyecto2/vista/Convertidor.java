@@ -5,6 +5,9 @@
 package proyecto2.vista;
 
 import java.awt.Color;
+import proyecto2.controlador.CategoriaControlador;
+import proyecto2.controlador.UsuarioControlador;
+import proyecto2.modelo.Usuario;
 
 
 /**
@@ -16,10 +19,14 @@ public class Convertidor extends javax.swing.JFrame {
     /**
      * Creates new form Convertidor
      */
+    
+    UsuarioControlador userC = new UsuarioControlador();
+    CategoriaControlador categoriaC = new CategoriaControlador();
+    
     public Convertidor() {
         initComponents();
         this.getContentPane().setBackground(new Color(255,210,129));
-        
+        DatosUsuario();
         
     }
 
@@ -68,7 +75,11 @@ public class Convertidor extends javax.swing.JFrame {
         cmbUser.setBackground(new java.awt.Color(255, 221, 154));
         cmbUser.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cmbUser.setForeground(new java.awt.Color(0, 0, 0));
-        cmbUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbUser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbUserItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -77,7 +88,6 @@ public class Convertidor extends javax.swing.JFrame {
         cmbCategoria.setBackground(new java.awt.Color(255, 221, 154));
         cmbCategoria.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAgregar.setBackground(new java.awt.Color(255, 221, 154));
         btnAgregar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -103,10 +113,10 @@ public class Convertidor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(btnRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(53, 53, 53)
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
@@ -332,6 +342,31 @@ public class Convertidor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_chk1ActionPerformed
 
+    private void cmbUserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbUserItemStateChanged
+       Categorias();
+    }//GEN-LAST:event_cmbUserItemStateChanged
+
+    private void DatosUsuario() {
+        cmbUser.addItem("SELECCIONA UN USUARIO");
+        for(int i = 0; i < userC.Usuarios().getSize(); i++) {
+            cmbUser.addItem(((Usuario)userC.Usuarios().get(i)).usuario);
+        }
+    }
+    
+    private void Categorias() {
+        if(cmbUser.getSelectedIndex() != 0) {
+            cmbCategoria.removeAllItems();
+            cmbCategoria.addItem("SELECCIONA UNA CATEGORIA");
+            categoriaC.CategoriaUsuario((String)cmbUser.getSelectedItem());
+            for(int i = 0; i < categoriaC.ObtenerCategorias().size(); i++) {
+                cmbCategoria.addItem(categoriaC.ObtenerCategorias().get(i).getNombre());
+            }
+        } else {
+            cmbCategoria.removeAllItems();
+            cmbCategoria.addItem("SELECCIONA UNA CATEGORIA");
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
