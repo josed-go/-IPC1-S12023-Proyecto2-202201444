@@ -389,6 +389,11 @@ public class Biblioteca extends javax.swing.JFrame {
             if(imagenC.ObtenerImagenes().size() > 0) {
                 CargarImagenes(cont);
                 btnEImagen.setVisible(true);
+            } else {
+                lblNimagen.setText("RUTA IMAGEN");
+                lblImagen.setText("NO HAY IMAGEN");
+                lblImagen.setIcon(null);
+                btnEImagen.setVisible(false);
             }
             
         }
