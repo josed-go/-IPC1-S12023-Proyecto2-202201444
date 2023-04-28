@@ -24,7 +24,7 @@ public class JPEGImageHandlerRotator extends ImageHandler{
     public void readFile() throws Exception {
         File fi = new File(getFileName());
         jpg = ImageIO.read(fi);
-        bmpTemp = new File("src/imagenes/temporal/bmpTemp.bmp");
+        bmpTemp = new File("src/imagenes/temporal/bmpTemp4.bmp");
         ImageIO.write(jpg, "jpg", bmpTemp);
         bmpH = ImageIO.read(bmpTemp);
         bmpV = ImageIO.read(bmpTemp);

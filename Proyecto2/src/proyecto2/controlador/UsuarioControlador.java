@@ -1,5 +1,6 @@
 package proyecto2.controlador;
 
+import proyecto2.AppState;
 import proyecto2.estructura.ListaSimple;
 import proyecto2.modelo.Usuario;
 
@@ -29,6 +30,22 @@ public class UsuarioControlador {
     
     public ListaSimple Usuarios() {
         return lista;
+    }
+    
+    public void ObtenerUsuarios() {
+        for(int i = 0; i < AppState.listaS.getSize(); i++) {
+            lista.add(((Usuario)AppState.listaS.get(i)).usuario);
+        }
+    }
+    
+    public void GuardarDatos() {
+        try {
+            for(int i = 0; i < lista.getSize(); i++) {
+                AppState.listaS.add(((Usuario)lista.get(i)).usuario);
+            }
+        } catch (Exception e) {
+        }
+        
     }
     
 }

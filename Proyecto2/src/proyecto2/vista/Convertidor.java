@@ -5,8 +5,26 @@
 package proyecto2.vista;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import proyecto2.controlador.CategoriaControlador;
+import proyecto2.controlador.ImagenControlador;
 import proyecto2.controlador.UsuarioControlador;
+import proyecto2.handlersImage.BMPtoJPEGImage;
+import proyecto2.handlersImage.JPEGImageCopy;
+import proyecto2.handlersImage.JPEGImageHandlerBN;
+import proyecto2.handlersImage.JPEGImageHandlerColors;
+import proyecto2.handlersImage.JPEGImageHandlerRotator;
+import proyecto2.handlersImage.JPEGtoBMPImage;
+import proyecto2.hilos.HiloC;
+import proyecto2.hilos.HiloCN;
+import proyecto2.hilos.HiloD;
+import proyecto2.hilos.HiloT;
+import proyecto2.hilos.Principal;
+import proyecto2.modelo.Imagen;
 import proyecto2.modelo.Usuario;
 
 
@@ -14,7 +32,7 @@ import proyecto2.modelo.Usuario;
  *
  * @author JD
  */
-public class Convertidor extends javax.swing.JFrame {
+public class Convertidor extends javax.swing.JFrame implements Runnable{
 
     /**
      * Creates new form Convertidor
@@ -22,11 +40,15 @@ public class Convertidor extends javax.swing.JFrame {
     
     UsuarioControlador userC = new UsuarioControlador();
     CategoriaControlador categoriaC = new CategoriaControlador();
+    ImagenControlador imagenC = new ImagenControlador();
+    
+    DefaultListModel<String> modelo = new DefaultListModel<>();
     
     public Convertidor() {
         initComponents();
         this.getContentPane().setBackground(new Color(255,210,129));
         DatosUsuario();
+        LlenarCola();
         
     }
 
@@ -50,7 +72,7 @@ public class Convertidor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        list = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         chk1 = new javax.swing.JCheckBox();
         chk2 = new javax.swing.JCheckBox();
@@ -94,6 +116,11 @@ public class Convertidor extends javax.swing.JFrame {
         btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregar.setText("AGREGAR");
         btnAgregar.setFocusPainted(false);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setBackground(new java.awt.Color(255, 221, 154));
         btnRegresar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -145,19 +172,19 @@ public class Convertidor extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("COLA DE PROCESAMIENTO");
 
-        jList1.setBackground(new java.awt.Color(255, 233, 179));
-        jList1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jList1.setForeground(new java.awt.Color(0, 0, 0));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        list.setBackground(new java.awt.Color(255, 233, 179));
+        list.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        list.setForeground(new java.awt.Color(0, 0, 0));
+        list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { " " };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jList1.setFocusable(false);
-        jList1.setRequestFocusEnabled(false);
-        jList1.setSelectionBackground(new java.awt.Color(255, 233, 179));
-        jList1.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(jList1);
+        list.setFocusable(false);
+        list.setRequestFocusEnabled(false);
+        list.setSelectionBackground(new java.awt.Color(255, 233, 179));
+        list.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(list);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -186,7 +213,6 @@ public class Convertidor extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 244, 203));
 
         chk1.setBackground(new java.awt.Color(255, 244, 203));
-        opcionesI.add(chk1);
         chk1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk1.setForeground(new java.awt.Color(0, 0, 0));
         chk1.setText("JPEG A BMP Y VICEVERSA");
@@ -198,28 +224,24 @@ public class Convertidor extends javax.swing.JFrame {
         });
 
         chk2.setBackground(new java.awt.Color(255, 244, 203));
-        opcionesI.add(chk2);
         chk2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk2.setForeground(new java.awt.Color(0, 0, 0));
         chk2.setText("COPIA JPEG");
         chk2.setFocusPainted(false);
 
         chk3.setBackground(new java.awt.Color(255, 244, 203));
-        opcionesI.add(chk3);
         chk3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk3.setForeground(new java.awt.Color(0, 0, 0));
         chk3.setText("ROJO - VERDE - AZUL - SEPIA");
         chk3.setFocusPainted(false);
 
         chk4.setBackground(new java.awt.Color(255, 244, 203));
-        opcionesI.add(chk4);
         chk4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk4.setForeground(new java.awt.Color(0, 0, 0));
         chk4.setText("MODIFICAR IMAGEN");
         chk4.setFocusPainted(false);
 
         chk5.setBackground(new java.awt.Color(255, 244, 203));
-        opcionesI.add(chk5);
         chk5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         chk5.setForeground(new java.awt.Color(0, 0, 0));
         chk5.setText("BLANCO Y NEGRO");
@@ -232,6 +254,11 @@ public class Convertidor extends javax.swing.JFrame {
         btnEjecutar.setForeground(new java.awt.Color(0, 0, 0));
         btnEjecutar.setText("EJECUTAR EN PARALELO");
         btnEjecutar.setFocusPainted(false);
+        btnEjecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -346,6 +373,36 @@ public class Convertidor extends javax.swing.JFrame {
        Categorias();
     }//GEN-LAST:event_cmbUserItemStateChanged
 
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if(cmbUser.getSelectedIndex() != 0 && cmbCategoria.getSelectedIndex() != 0) {
+            imagenC.AgregarImagenesACola((String)cmbUser.getSelectedItem(), (String)cmbCategoria.getSelectedItem());
+            LlenarCola();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un usuario y su categoria.");
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+        if(chk1.isSelected() || chk2.isSelected() || chk3.isSelected() || chk4.isSelected() || chk5.isSelected()) {
+            Thread hiloP = new Thread(this);
+            hiloP.start();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar por lo menos una opción.");
+        }
+    }//GEN-LAST:event_btnEjecutarActionPerformed
+
+    private void LlenarCola() {
+        list.setModel(modelo);
+
+        modelo.clear();
+        
+        for(int i = 0; i < imagenC.ImagenesCola().getSize(); i++) {
+            String ruta = ((Imagen)imagenC.ImagenesCola().get(i)).getRuta().replaceAll("^[/\\\\\\\\]?(?:.+[/\\\\\\\\]+?)?(.+?)[/\\\\\\\\]?$", "$1");
+            modelo.addElement(ruta);
+        }
+        
+    }
+    
     private void DatosUsuario() {
         cmbUser.addItem("SELECCIONA UN USUARIO");
         for(int i = 0; i < userC.Usuarios().getSize(); i++) {
@@ -416,7 +473,6 @@ public class Convertidor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -424,7 +480,73 @@ public class Convertidor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JList<String> list;
     private javax.swing.ButtonGroup opcionesI;
     private javax.swing.JProgressBar proB;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        int i = 0;
+        //for(int i = 0; i < imagenC.ImagenesCola().getSize(); i++) {
+        try {
+            while(imagenC.ImagenesCola().getSize() >= 0){
+                i = imagenC.ImagenesCola().getSize()-1;
+                String ruta = ((Imagen)imagenC.ImagenesCola().get(i)).getRuta();
+                System.out.println(ruta);
+                String extension = ruta.replaceAll("^.*\\.(.*)$", "$1");
+
+                if(chk1.isSelected()) {
+                    if(extension.equals("jpg")) {
+                        JPEGtoBMPImage image = new JPEGtoBMPImage(ruta);
+                        Principal hilo1;
+                        hilo1 = new Principal(image);
+                        hilo1.start();
+                    } else if(extension.equals("bmp")) {
+                        BMPtoJPEGImage image = new BMPtoJPEGImage(ruta);
+                        Principal hilo1;
+                        hilo1 = new Principal(image);
+                        hilo1.start();
+                    }
+                }
+                if(chk2.isSelected()) {
+                    try {
+                        JPEGImageCopy imageCopy = new JPEGImageCopy(ruta);
+                        HiloD hilo2;
+                        hilo2 = new HiloD(imageCopy);
+                        hilo2.start();
+                    } catch (Exception e) {
+                    }
+
+                }
+                if(chk3.isSelected()) {
+                    JPEGImageHandlerColors image = new JPEGImageHandlerColors(ruta);
+                    HiloT hilo3;
+                    hilo3 = new HiloT(image);
+                    hilo3.start();
+                }
+                if(chk4.isSelected()) {
+                    JPEGImageHandlerRotator image = new JPEGImageHandlerRotator(ruta);
+                    HiloC hilo4;
+                    hilo4 = new HiloC(image);
+                    hilo4.start();
+                }
+                if(chk5.isSelected()) {
+                    JPEGImageHandlerBN image = new JPEGImageHandlerBN(ruta);
+                    HiloCN hilo5;
+                    hilo5 = new HiloCN(image);
+                    hilo5.start();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                imagenC.ImagenesCola().delete(ruta);
+                LlenarCola();
+            }
+        } catch (Exception ex) {
+            
+        }
+    }
 }

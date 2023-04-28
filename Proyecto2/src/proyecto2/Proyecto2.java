@@ -1,5 +1,9 @@
 package proyecto2;
 
+import com.sun.java.accessibility.util.AWTEventMonitor;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import proyecto2.controlador.UsuarioControlador;
 import proyecto2.vista.Inicio;
 
 /**
@@ -13,6 +17,15 @@ public class Proyecto2 {
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
         
+        /*AppState.Deserializar();
+        UsuarioControlador userC = new UsuarioControlador();
+        userC.ObtenerUsuarios();
+        
+        AWTEventMonitor.addWindowListener(new WindowAdapter() {
+            public void windowClosin(WindowEvent e) {
+                AppState.Serializar();
+            }
+        });*/
     }
     
 }

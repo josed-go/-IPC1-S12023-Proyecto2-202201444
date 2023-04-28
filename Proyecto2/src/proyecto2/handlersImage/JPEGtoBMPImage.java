@@ -22,7 +22,7 @@ public class JPEGtoBMPImage extends ImageHandler {
     public void readFile() throws Exception {
         File fi = new File(getFileName());
         jpg = ImageIO.read(fi);
-        bmpTemp = new File("src/imagenes/temporal/bmpTemp.bmp");
+        bmpTemp = new File("src/imagenes/temporal/bmpTemp5.bmp");
         ImageIO.write(jpg, "bmp", bmpTemp);
         bmp = ImageIO.read(bmpTemp);
         

@@ -8,6 +8,7 @@ import proyecto2.modelo.Imagen;
 public class ImagenControlador {
     
     static ListaDoble listaD = new ListaDoble();
+    static ListaDoble cola = new ListaDoble();
     
     static ArrayList<String> arrayUser = new ArrayList<>();
     
@@ -65,4 +66,20 @@ public class ImagenControlador {
         arrayUser.clear();
     }
     
+    // CONVERTIDOR DE IMAGENES
+    
+    public void AgregarImagenesACola(String user, String categoria) {
+        
+        for(int i = 0; i < listaD.getSize(); i++) {
+            if(((Imagen)listaD.get(i)).getCategoria().equalsIgnoreCase(categoria) && ((Imagen)listaD.get(i)).getUsuario().equalsIgnoreCase(user)) {
+                cola.add(listaD.get(i));
+            }
+        }
+        cola.MostrarLista();
+        
+    }
+    
+    public ListaDoble ImagenesCola() {
+        return cola;
+    }
 }
