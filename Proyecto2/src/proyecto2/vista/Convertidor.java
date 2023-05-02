@@ -84,6 +84,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         proB = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        lblImages = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 242, 129));
@@ -191,13 +192,12 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(12, 12, 12)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel3)))
+                    .addComponent(jLabel3))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -205,7 +205,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -277,9 +277,10 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         );
 
         proB.setBackground(new java.awt.Color(255, 233, 179));
+        proB.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         proB.setForeground(new java.awt.Color(255, 210, 129));
-        proB.setValue(50);
         proB.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        proB.setStringPainted(true);
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(255, 244, 203));
@@ -290,25 +291,34 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane2.setViewportView(jTextArea1);
 
+        lblImages.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        lblImages.setForeground(new java.awt.Color(0, 0, 0));
+        lblImages.setText("0 / 0");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(70, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(proB, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chk5)
-                            .addComponent(chk4)
-                            .addComponent(chk2)
-                            .addComponent(chk1)
-                            .addComponent(chk3))
-                        .addGap(67, 67, 67)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(proB, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chk5)
+                                    .addComponent(chk4)
+                                    .addComponent(chk2)
+                                    .addComponent(chk1)
+                                    .addComponent(chk3))
+                                .addGap(67, 67, 67)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblImages)
+                        .addGap(313, 313, 313))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,11 +338,13 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(proB, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImages)
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -377,6 +389,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         if(cmbUser.getSelectedIndex() != 0 && cmbCategoria.getSelectedIndex() != 0) {
             imagenC.AgregarImagenesACola((String)cmbUser.getSelectedItem(), (String)cmbCategoria.getSelectedItem());
             LlenarCola();
+            lblImages.setText("0 / "+imagenC.ImagenesCola().getSize());
         } else {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un usuario y su categoria.");
         }
@@ -422,6 +435,16 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
             cmbCategoria.removeAllItems();
             cmbCategoria.addItem("SELECCIONA UNA CATEGORIA");
         }
+    }
+    
+    private void Resetear() {
+        proB.setValue(0);
+        lblImages.setText("0 / 0");
+        chk1.setSelected(false);
+        chk2.setSelected(false);
+        chk3.setSelected(false);
+        chk4.setSelected(false);
+        chk5.setSelected(false);
     }
     
     /**
@@ -480,6 +503,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblImages;
     private javax.swing.JList<String> list;
     private javax.swing.ButtonGroup opcionesI;
     private javax.swing.JProgressBar proB;
@@ -488,6 +512,8 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
     @Override
     public void run() {
         int i = 0;
+        int cont = 0;
+        int size = imagenC.ImagenesCola().getSize();
         //for(int i = 0; i < imagenC.ImagenesCola().getSize(); i++) {
         try {
             while(imagenC.ImagenesCola().getSize() >= 0){
@@ -542,11 +568,18 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Convertidor.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                imagenC.ImagenesCola().delete(ruta);
+                cont++;
+                proB.setValue((int)(cont*100)/size);
+                lblImages.setText(cont+" / "+size);
+                imagenC.ImagenesCola().delete(ruta);                
                 LlenarCola();
+                
             }
+            
         } catch (Exception ex) {
             
         }
+        JOptionPane.showMessageDialog(this, "Proceso terminado. Imagenes convertidas.");
+        Resetear();
     }
 }
