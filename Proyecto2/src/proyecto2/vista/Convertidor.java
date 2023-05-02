@@ -83,7 +83,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         btnEjecutar = new javax.swing.JButton();
         proB = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textA = new javax.swing.JTextArea();
         lblImages = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -282,14 +282,14 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         proB.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         proB.setStringPainted(true);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(255, 244, 203));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jScrollPane2.setViewportView(jTextArea1);
+        textA.setEditable(false);
+        textA.setBackground(new java.awt.Color(255, 244, 203));
+        textA.setColumns(20);
+        textA.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        textA.setForeground(new java.awt.Color(0, 0, 0));
+        textA.setRows(5);
+        textA.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane2.setViewportView(textA);
 
         lblImages.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lblImages.setForeground(new java.awt.Color(0, 0, 0));
@@ -502,11 +502,11 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblImages;
     private javax.swing.JList<String> list;
     private javax.swing.ButtonGroup opcionesI;
     private javax.swing.JProgressBar proB;
+    private javax.swing.JTextArea textA;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -526,12 +526,12 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
                     if(extension.equals("jpg")) {
                         JPEGtoBMPImage image = new JPEGtoBMPImage(ruta);
                         Principal hilo1;
-                        hilo1 = new Principal(image);
+                        hilo1 = new Principal(image, textA);
                         hilo1.start();
                     } else if(extension.equals("bmp")) {
                         BMPtoJPEGImage image = new BMPtoJPEGImage(ruta);
                         Principal hilo1;
-                        hilo1 = new Principal(image);
+                        hilo1 = new Principal(image, textA);
                         hilo1.start();
                     }
                 }
@@ -539,7 +539,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
                     try {
                         JPEGImageCopy imageCopy = new JPEGImageCopy(ruta);
                         HiloD hilo2;
-                        hilo2 = new HiloD(imageCopy);
+                        hilo2 = new HiloD(imageCopy, textA);
                         hilo2.start();
                     } catch (Exception e) {
                     }
@@ -548,19 +548,19 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
                 if(chk3.isSelected()) {
                     JPEGImageHandlerColors image = new JPEGImageHandlerColors(ruta);
                     HiloT hilo3;
-                    hilo3 = new HiloT(image);
+                    hilo3 = new HiloT(image, textA);
                     hilo3.start();
                 }
                 if(chk4.isSelected()) {
                     JPEGImageHandlerRotator image = new JPEGImageHandlerRotator(ruta);
                     HiloC hilo4;
-                    hilo4 = new HiloC(image);
+                    hilo4 = new HiloC(image, textA);
                     hilo4.start();
                 }
                 if(chk5.isSelected()) {
                     JPEGImageHandlerBN image = new JPEGImageHandlerBN(ruta);
                     HiloCN hilo5;
-                    hilo5 = new HiloCN(image);
+                    hilo5 = new HiloCN(image, textA);
                     hilo5.start();
                 }
                 try {
