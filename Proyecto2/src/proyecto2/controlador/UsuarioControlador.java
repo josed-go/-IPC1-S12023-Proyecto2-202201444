@@ -14,6 +14,7 @@ public class UsuarioControlador {
         Usuario nuevo = new Usuario(user);
         lista.add(nuevo);
         lista.listar();       
+        AppState.SerializarU(lista);
     }
     
     public void UsuarioLog(String usuario) {
@@ -33,19 +34,12 @@ public class UsuarioControlador {
     }
     
     public void ObtenerUsuarios() {
-        for(int i = 0; i < AppState.listaS.getSize(); i++) {
-            lista.add(((Usuario)AppState.listaS.get(i)).usuario);
-        }
-    }
-    
-    public void GuardarDatos() {
         try {
-            for(int i = 0; i < lista.getSize(); i++) {
-                AppState.listaS.add(((Usuario)lista.get(i)).usuario);
-            }
+            lista = AppState.DeserializarU();
         } catch (Exception e) {
         }
         
     }
+
     
 }

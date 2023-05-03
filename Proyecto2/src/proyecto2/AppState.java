@@ -14,10 +14,9 @@ import proyecto2.estructura.ListaSimple;
 import proyecto2.modelo.Usuario;
 
 public class AppState {
-    public static String rutaUsers = "./appState.bin";
-    public static ListaSimple listaS = new ListaSimple();
+    public static String rutaUsers = "./appState.dat";
     
-    public static void Serializar() {
+    public static void SerializarU(ListaSimple listaU) {
         File file = new File(rutaUsers);
         
         if(!file.exists()) {
@@ -33,7 +32,7 @@ public class AppState {
         try {
             FileOutputStream fos = new FileOutputStream(rutaUsers);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(listaS);
+            oos.writeObject(listaU);
         } catch (FileNotFoundException e) {
             System.out.println("No encontro la carpeta del archivo.");
         } catch (IOException ex) {
@@ -41,16 +40,24 @@ public class AppState {
         }
     }
     
-    public static void Deserializar() {
+    public static ListaSimple DeserializarU() {
+        ListaSimple listaU = new ListaSimple();
         try {
             File file = new File(rutaUsers);
             if(!file.exists()) {
-                return;
+                return listaU;
             }
             
-            FileInputStream fis = new FileInputStream(rutaUsers);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            listaS = (ListaSimple) ois.readObject();
+            
+            FileInputStream fis = new FileInputStream(file);
+            while(fis.available() > 0){
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                listaU = (ListaSimple)ois.readObject();
+                //ois.close();
+            }
+            //fis.close();
+            
+            return listaU;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -58,5 +65,6 @@ public class AppState {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return listaU;
     }
 }

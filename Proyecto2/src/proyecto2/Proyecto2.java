@@ -16,16 +16,10 @@ public class Proyecto2 {
     public static void main(String[] args) {
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
-        
-        /*AppState.Deserializar();
+
         UsuarioControlador userC = new UsuarioControlador();
         userC.ObtenerUsuarios();
         
-        AWTEventMonitor.addWindowListener(new WindowAdapter() {
-            public void windowClosin(WindowEvent e) {
-                AppState.Serializar();
-            }
-        });*/
     }
     
 }
