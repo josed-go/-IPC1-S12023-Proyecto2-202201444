@@ -30,6 +30,9 @@ public class CategoriaControlador {
     public void EliminarCategoria(String categoria) {
         for(int i = 0; i < arrayCategoria.size(); i++) {
             if(arrayCategoria.get(i).getNombre().equalsIgnoreCase(categoria) && arrayCategoria.get(i).getUsuario().equalsIgnoreCase(userC.UsuarioLogeado())) {
+                if(arrayCategoria.get(i).getNombre().equalsIgnoreCase("GENERAL")) {
+                    userC.ValidarUsuario().setFlag(false);
+                }
                 arrayCategoria.remove(i);
                 CategoriaUsuario(userC.UsuarioLogeado());
                 AppState.SerializarC(arrayCategoria);
@@ -49,7 +52,7 @@ public class CategoriaControlador {
     
     public boolean ValidarUsuario(String user) {
         for(Categoria cate: arrayCategoria) {
-            if(cate.getNombre().equalsIgnoreCase("GENERAL") && cate.getUsuario().equalsIgnoreCase(user)) {
+            if((cate.getNombre().equalsIgnoreCase("GENERAL") && cate.getUsuario().equalsIgnoreCase(user)) || userC.ValidarUsuario().flag == false) {
                 return true;
             }
         }

@@ -49,7 +49,6 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         this.getContentPane().setBackground(new Color(255,210,129));
         DatosUsuario();
         LlenarCola();
-        
     }
 
     /**
@@ -285,7 +284,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
         textA.setEditable(false);
         textA.setBackground(new java.awt.Color(255, 244, 203));
         textA.setColumns(20);
-        textA.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        textA.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textA.setForeground(new java.awt.Color(0, 0, 0));
         textA.setRows(5);
         textA.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -390,6 +389,7 @@ public class Convertidor extends javax.swing.JFrame implements Runnable{
             imagenC.AgregarImagenesACola((String)cmbUser.getSelectedItem(), (String)cmbCategoria.getSelectedItem());
             LlenarCola();
             lblImages.setText("0 / "+imagenC.ImagenesCola().getSize());
+            textA.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un usuario y su categoria.");
         }
