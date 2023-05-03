@@ -1,6 +1,7 @@
 package proyecto2.controlador;
 
 import java.util.ArrayList;
+import proyecto2.AppState;
 import proyecto2.modelo.Categoria;
 
 
@@ -22,6 +23,7 @@ public class CategoriaControlador {
         if(!ValidarCategoria(categoria)) {
             arrayCategoria.add(new Categoria(categoria, userC.UsuarioLogeado()));
             CategoriaUsuario(userC.UsuarioLogeado());
+            AppState.SerializarC(arrayCategoria);
         }
     }
     
@@ -30,6 +32,7 @@ public class CategoriaControlador {
             if(arrayCategoria.get(i).getNombre().equalsIgnoreCase(categoria) && arrayCategoria.get(i).getUsuario().equalsIgnoreCase(userC.UsuarioLogeado())) {
                 arrayCategoria.remove(i);
                 CategoriaUsuario(userC.UsuarioLogeado());
+                AppState.SerializarC(arrayCategoria);
             }
         }
         imagenC.EliminarImagenes(categoria);
@@ -68,5 +71,12 @@ public class CategoriaControlador {
     
     public void LimpiarArray() {
         arrayCateUsuario.clear();
+    }
+    
+    public void Categorias() {
+        try {
+            arrayCategoria = AppState.DeserializarC();
+        } catch (Exception e) {
+        }
     }
 }

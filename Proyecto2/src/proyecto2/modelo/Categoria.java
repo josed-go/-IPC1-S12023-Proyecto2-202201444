@@ -1,7 +1,9 @@
 package proyecto2.modelo;
 
+import java.io.Serializable;
 
-public class Categoria {
+
+public class Categoria implements Serializable{
     private String nombre;
     private String usuario;
 
