@@ -8,16 +8,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import proyecto2.estructura.ListaDoble;
 import proyecto2.estructura.ListaSimple;
 import proyecto2.modelo.Categoria;
-import proyecto2.modelo.Usuario;
 
 public class AppState {
     public static String rutaUsers = "./appStateU.dat";
     public static String rutaCategorias = "./appStateC.dat";
+    public static String rutaImagenes = "./appStateI.dat";
     
     public static void SerializarU(ListaSimple listaU) {
         File file = new File(rutaUsers);
@@ -60,6 +60,30 @@ public class AppState {
             FileOutputStream fos = new FileOutputStream(rutaCategorias);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(arrayC);
+        } catch (FileNotFoundException e) {
+            System.out.println("No encontro la carpeta del archivo.");
+        } catch (IOException ex) {
+            Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void SerializarI(ListaDoble listaD) {
+        File file = new File(rutaImagenes);
+        
+        if(!file.exists()) {
+            file.getParentFile().mkdir();
+        }
+        
+        try {
+            file.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("No se pudo crear el archivo de serealizacion");
+        }
+        
+        try {
+            FileOutputStream fos = new FileOutputStream(rutaImagenes);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(listaD);
         } catch (FileNotFoundException e) {
             System.out.println("No encontro la carpeta del archivo.");
         } catch (IOException ex) {
@@ -121,5 +145,33 @@ public class AppState {
             Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arrayC;
+    }
+    
+    public static ListaDoble DeserializarI() {
+        ListaDoble listaD = new ListaDoble();
+        try {
+            File file = new File(rutaImagenes);
+            if(!file.exists()) {
+                return listaD;
+            }
+            
+            
+            FileInputStream fis = new FileInputStream(file);
+            while(fis.available() > 0){
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                listaD = (ListaDoble)ois.readObject();
+                //ois.close();
+            }
+            //fis.close();
+            
+            return listaD;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AppState.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaD;
     }
 }

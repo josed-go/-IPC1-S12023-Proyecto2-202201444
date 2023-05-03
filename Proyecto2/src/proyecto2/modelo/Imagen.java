@@ -1,6 +1,8 @@
 package proyecto2.modelo;
 
-public class Imagen {
+import java.io.Serializable;
+
+public class Imagen implements Serializable{
     public String ruta;
     public String categoria;
     public String usuario;

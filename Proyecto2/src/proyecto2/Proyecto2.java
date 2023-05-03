@@ -1,9 +1,7 @@
 package proyecto2;
 
-import com.sun.java.accessibility.util.AWTEventMonitor;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import proyecto2.controlador.CategoriaControlador;
+import proyecto2.controlador.ImagenControlador;
 import proyecto2.controlador.UsuarioControlador;
 import proyecto2.vista.Inicio;
 
@@ -20,8 +18,10 @@ public class Proyecto2 {
 
         UsuarioControlador userC = new UsuarioControlador();
         CategoriaControlador categoriaC = new CategoriaControlador();
+        ImagenControlador imagenC = new ImagenControlador();
         userC.ObtenerUsuarios();
         categoriaC.Categorias();
+        imagenC.Imagenes();
         
     }
     

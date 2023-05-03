@@ -1,6 +1,7 @@
 package proyecto2.controlador;
 
 import java.util.ArrayList;
+import proyecto2.AppState;
 import proyecto2.estructura.ListaDoble;
 import proyecto2.modelo.Imagen;
 
@@ -18,6 +19,7 @@ public class ImagenControlador {
         Imagen imagenN = new Imagen(ruta, categoria, userC.UsuarioLogeado());
         listaD.add(imagenN);
         listaD.MostrarLista();
+        AppState.SerializarI(listaD);
      }
     
     public void EliminarImagen(String categoria,String ruta) {
@@ -28,6 +30,7 @@ public class ImagenControlador {
                 ImagenesCategoria(categoria);
                 System.out.println(ruta+" Imagen eliminada");
                 listaD.MostrarLista();
+                AppState.SerializarI(listaD);
             }
         }
     }
@@ -49,6 +52,7 @@ public class ImagenControlador {
                 i = listaD.getSize()-1;
                 if(((Imagen)listaD.get(i)).getCategoria().equalsIgnoreCase(categoria) && ((Imagen)listaD.get(i)).getUsuario().equalsIgnoreCase(userC.UsuarioLogeado())) {
                     listaD.delete(((Imagen)listaD.get(i)).getRuta());
+                    AppState.SerializarI(listaD);
                 }
             }
             LimpiarArray();
@@ -56,6 +60,13 @@ public class ImagenControlador {
             
         }
         
+    }
+    
+    public void Imagenes() {
+        try {
+            listaD = AppState.DeserializarI();
+        } catch (Exception e) {
+        }
     }
     
     public ArrayList<String> ObtenerImagenes() {
